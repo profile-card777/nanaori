@@ -6,21 +6,34 @@
   <title>ナナオリ 自己紹介カードメーカー</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;500;700&family=Kosugi+Maru&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Orbitron:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
     <h1>七つの大罪 Origin 自己紹介カードメーカー</h1>
-    <p>素材を選んで、入力内容を反映し、そのままPNG保存できます。</p>
+    <p>素材を選んで、入力内容を反映し、そのまま保存できます。</p>
   </header>
 
   <main class="layout">
     <section class="form-column">
+      <div class="panel guide-panel">
+        <h2>【使い方】</h2>
+        <div class="guide-body">
+          <p>① 使用したいデザインを選択してください</p>
+          <p>② 記載したい項目を入力または選択してください</p>
+          <p>③ 「プレビューに反映」で確認できます</p>
+          <p>④ 「自己紹介カードを保存」から端末にDLします</p>
+          <p>⑤ 「Xで投稿する」から、DLしたカードを添付してポストしてください</p>
+          <p class="guide-note">（投稿する際、#ナナオリ自己紹介カードと当サイトのリンクは消さないようお願い致します）</p>
+          <p class="guide-note">※ 製作者ID・著作権マーク等を削除しなければ装飾など改変OKです！</p>
+        </div>
+      </div>
+
       <div class="panel">
         <div class="design-row">
-          <label for="designSelect">デザイン</label>
-          <select id="designSelect">
+          <label for="designSelect">デザインをココから選択👉</label>
+          <select id="designSelect" class="design-select">
             <option value="simple">シンプル</option>
           </select>
         </div>
@@ -28,6 +41,24 @@
         <div class="field">
           <label for="thumbUpload">サムネ画像</label>
           <input id="thumbUpload" type="file" accept="image/*">
+          <p class="help-text">画像選択後に正方形で表示範囲を調整できます。未設定時はキャラ画像がランダム表示されます。</p>
+        </div>
+
+        <div class="thumb-crop-panel" id="thumbCropPanel" hidden>
+          <div class="thumb-crop-header">
+            <h3>サムネイル切り抜き</h3>
+            <p>正方形で表示したい範囲を調整してください</p>
+          </div>
+          <div class="thumb-crop-stage">
+            <div class="thumb-crop-image-wrap">
+              <img id="thumbCropImage" alt="サムネイル切り抜きプレビュー">
+              <div id="thumbCropBox" class="thumb-crop-box" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="thumb-crop-actions">
+            <button id="thumbCropApplyBtn" class="btn primary" type="button">切り抜きを適用</button>
+            <button id="thumbCropCancelBtn" class="btn" type="button">キャンセル</button>
+          </div>
         </div>
 
         <div class="field-grid two-col">
@@ -41,35 +72,45 @@
           </div>
         </div>
 
-        <div class="field-grid two-col">
-          <div class="field">
-            <label for="guildInput">ギルド名</label>
-            <input id="guildInput" type="text" maxlength="40" placeholder="例：七星団">
-          </div>
-          <div class="field">
-            <span class="section-label">VC有無</span>
-            <div class="choice-row compact" id="vcGroup"></div>
-          </div>
+        <div class="field single-row-field">
+          <label for="guildInput">ギルド名</label>
+          <input id="guildInput" type="text" maxlength="40" placeholder="例：七星団">
         </div>
 
-        <div class="field-grid three-col">
-          <div class="field">
-            <span class="section-label">主なプレイスタイル（2つまで）</span>
-            <div class="choice-grid" id="playStyleGroup"></div>
-          </div>
-          <div class="field">
-            <span class="section-label">プレイタイム</span>
-            <div class="choice-grid icon-grid" id="playTimeGroup"></div>
-          </div>
-          <div class="field">
-            <span class="section-label">プラットフォーム</span>
-            <div class="choice-grid icon-grid" id="platformGroup"></div>
-          </div>
+        <div class="field single-row-field">
+          <span class="section-label">ボイスチャット</span>
+          <div class="choice-row compact icon-choice-row" id="vcGroup"></div>
+        </div>
+
+        <div class="field single-row-field">
+          <span class="section-label">主なプレイスタイル（二つまで）</span>
+          <div class="choice-grid text-chip-grid" id="playStyleGroup"></div>
+        </div>
+
+        <div class="field single-row-field">
+          <span class="section-label">プレイタイム</span>
+          <div class="choice-row icon-choice-row" id="playTimeGroup"></div>
+        </div>
+
+        <div class="field single-row-field">
+          <span class="section-label">プラットフォーム</span>
+          <div class="choice-row icon-choice-row" id="platformGroup"></div>
         </div>
 
         <div class="field">
           <span class="section-label">メイン編成＆武器</span>
           <div class="party-grid" id="partyGrid"></div>
+        </div>
+
+        <div class="field-grid two-col">
+          <div class="field">
+            <span class="section-label">フォント</span>
+            <div class="choice-grid radio-grid" id="fontGroup"></div>
+          </div>
+          <div class="field">
+            <span class="section-label">文字色</span>
+            <div class="choice-grid radio-grid" id="textColorGroup"></div>
+          </div>
         </div>
 
         <div class="field">
@@ -79,8 +120,12 @@
 
         <div class="button-area">
           <button id="renderBtn" class="btn primary" type="button">プレビューに反映</button>
-          <button id="downloadBtn" class="btn" type="button">PNGで保存</button>
-          <button id="shareBtn" class="btn" type="button">X投稿文を開く</button>
+          <button id="downloadBtn" class="btn" type="button">自己紹介カードを保存</button>
+          <button id="shareBtn" class="btn" type="button">Xで投稿する</button>
+        </div>
+
+        <div class="ios-note" id="iosNote">
+          <p>※ iPhone / iPad をお使いの場合、保存時に画像が別タブで開いたら長押しで保存してください。</p>
         </div>
       </div>
     </section>
@@ -93,6 +138,12 @@
         </div>
         <div class="canvas-wrap">
           <canvas id="cardCanvas" width="1400" height="1000"></canvas>
+        </div>
+
+        <div class="preview-footer">
+          <p>※本コンテンツに著作権侵害の意図はございません</p>
+          <p>製作者：<a href="https://x.com/harakudas215" target="_blank" rel="noopener noreferrer">@harakudas215</a></p>
+          <div class="banner-area">バナーエリア</div>
         </div>
       </div>
     </section>
