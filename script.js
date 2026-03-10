@@ -869,6 +869,9 @@ async function renderCard() {
     thumbnailImage = await getFallbackThumbnailImage();
   }
 
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(LAYOUT.thumbnail.x, LAYOUT.thumbnail.y, LAYOUT.thumbnail.w, LAYOUT.thumbnail.h);
+
   if (thumbnailImage) {
     drawCoverImage(thumbnailImage, LAYOUT.thumbnail);
   }
