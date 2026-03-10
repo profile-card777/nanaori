@@ -64,6 +64,30 @@ const CHARACTERS = [
   { id: 'meliodas', name: 'メリオダス', file: 'assets/characters/meliodas.png' }
 ];
 
+const THUMBNAIL_FALLBACKS = [
+  'assets/characters/elaine.png',
+  'assets/characters/king.png',
+  'assets/characters/gilthunder.png',
+  'assets/characters/guila.png',
+  'assets/characters/griamore.png',
+  'assets/characters/jericho.png',
+  'assets/characters/slader.png',
+  'assets/characters/tioreh.png',
+  'assets/characters/diane.png',
+  'assets/characters/daisy.png',
+  'assets/characters/tristan.png',
+  'assets/characters/drake.png',
+  'assets/characters/doredrin.png',
+  'assets/characters/dreyfus.png',
+  'assets/characters/howzer.png',
+  'assets/characters/bug.png',
+  'assets/characters/hendrickson.png',
+  'assets/characters/manny.png',
+  'assets/characters/meliodas.png',
+  'assets/characters/red-demon.png',
+  'assets/characters/gray-demon.png'
+];
+
 const WEAPONS = [
   { id: 'dual_blades', name: '双剣', file: 'assets/weapons/dual_blades.png' },
   { id: 'long_sword', name: '長剣', file: 'assets/weapons/long_sword.png' },
@@ -153,6 +177,7 @@ const state = {
   thumbCropResizing: false,
   thumbCropPointer: null,
   thumbCropStart: null,
+  fallbackThumbFile: null,
   imageCache: new Map()
 };
 
@@ -333,7 +358,6 @@ function bindVcBehavior() {
   inputs.forEach(input => {
     input.addEventListener('change', event => {
       const target = event.currentTarget;
-      const checkedValues = selectedCheckboxValues('vc');
 
       if (target.value === 'ng' && target.checked) {
         inputs.forEach(item => {
@@ -814,21 +838,24 @@ function getPartySelections() {
   }));
 }
 
+function getRandomFallbackThumbFile() {
+  if (state.fallbackThumbFile) {
+    return state.fallbackThumbFile;
+  }
+
+  if (!THUMBNAIL_FALLBACKS.length) {
+    return null;
+  }
+
+  const randomIndex = Math.floor(Math.random() * THUMBNAIL_FALLBACKS.length);
+  state.fallbackThumbFile = THUMBNAIL_FALLBACKS[randomIndex];
+  return state.fallbackThumbFile;
+}
+
 async function getFallbackThumbnailImage() {
-  const partySelections = getPartySelections();
-  const selectedCharacterIds = partySelections
-    .map(item => item.characterId)
-    .filter(Boolean);
-
-  const sourceList = selectedCharacterIds.length
-    ? selectedCharacterIds
-    : CHARACTERS.map(item => item.id);
-
-  const targetId = sourceList[Math.floor(Math.random() * sourceList.length)];
-  const character = CHARACTERS.find(item => item.id === targetId);
-  if (!character) return null;
-
-  return loadImage(character.file);
+  const fallbackFile = getRandomFallbackThumbFile();
+  if (!fallbackFile) return null;
+  return loadImage(fallbackFile);
 }
 
 async function renderCard() {
