@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ナナオリ 自己紹介カードメーカー</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>七つの大罪 Origin 自己紹介カードメーカー</h1>
+    <p>素材を選んで、入力内容を反映し、そのままPNG保存できます。</p>
+  </header>
+
+  <main class="layout">
+    <section class="form-column">
+      <div class="panel">
+        <div class="design-row">
+          <label for="designSelect">デザイン</label>
+          <select id="designSelect">
+            <option value="simple">シンプル</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="thumbUpload">サムネ画像</label>
+          <input id="thumbUpload" type="file" accept="image/*">
+        </div>
+
+        <div class="field-grid two-col">
+          <div class="field">
+            <label for="nameInput">名前</label>
+            <input id="nameInput" type="text" maxlength="40" placeholder="例：メリオダス推し">
+          </div>
+          <div class="field">
+            <label for="userIdInput">ユーザーID</label>
+            <input id="userIdInput" type="text" maxlength="40" placeholder="例：123456789">
+          </div>
+        </div>
+
+        <div class="field-grid two-col">
+          <div class="field">
+            <label for="guildInput">ギルド名</label>
+            <input id="guildInput" type="text" maxlength="40" placeholder="例：七星団">
+          </div>
+          <div class="field">
+            <span class="section-label">VC有無</span>
+            <div class="choice-row compact" id="vcGroup"></div>
+          </div>
+        </div>
+
+        <div class="field-grid three-col">
+          <div class="field">
+            <span class="section-label">主なプレイスタイル（2つまで）</span>
+            <div class="choice-grid" id="playStyleGroup"></div>
+          </div>
+          <div class="field">
+            <span class="section-label">プレイタイム</span>
+            <div class="choice-grid icon-grid" id="playTimeGroup"></div>
+          </div>
+          <div class="field">
+            <span class="section-label">プラットフォーム</span>
+            <div class="choice-grid icon-grid" id="platformGroup"></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="section-label">メイン編成＆武器</span>
+          <div class="party-grid" id="partyGrid"></div>
+        </div>
+
+        <div class="field">
+          <label for="commentInput">フリーコメント</label>
+          <textarea id="commentInput" rows="6" maxlength="300" placeholder="例：ギルメン募集中です。まったり遊んでいます。"></textarea>
+        </div>
+
+        <div class="button-area">
+          <button id="renderBtn" class="btn primary" type="button">プレビューに反映</button>
+          <button id="downloadBtn" class="btn" type="button">PNGで保存</button>
+          <button id="shareBtn" class="btn" type="button">X投稿文を開く</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="preview-column">
+      <div class="preview-panel">
+        <div class="preview-header">
+          <h2>プレビュー</h2>
+          <p>1400 × 1000</p>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="cardCanvas" width="1400" height="1000"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
