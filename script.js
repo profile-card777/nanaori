@@ -946,8 +946,9 @@ function bindDownloadButton() {
 function bindShareButton() {
   shareBtn.addEventListener('click', () => {
     const text = [
-  '七つの大罪 Origin の自己紹介カードを作成しました。',
-  '#ナナオリ自己紹介カード',
+  '(下記ハッシュタグとURLは消さずに画像を添付して投稿してください)',
+  '#ナナオリ自己紹介カード #ナナオリ',
+  '作成はコチラ👇',
   'https://qr.paps.jp/5sMxu'
     ].join('\n');
 
