@@ -356,6 +356,20 @@ textarea {
   text-align: center;
   padding: 12px;
   width: 100%;
+  overflow: hidden;
+}
+.banner-area.has-banner {
+  padding: 0;
+  border-style: solid;
+}
+.banner-area a {
+  display: block;
+  width: 100%;
+}
+.banner-area img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 @media (max-width: 1180px) {
