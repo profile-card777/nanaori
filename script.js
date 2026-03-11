@@ -948,7 +948,7 @@ function bindShareButton() {
     const text = [
       '七つの大罪 Origin の自己紹介カードを作成しました。',
       '#ナナオリ自己紹介カード',
-      window.location.href
+      https://qr.paps.jp/5sMxu
     ].join('\n');
 
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
