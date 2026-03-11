@@ -168,6 +168,14 @@ const TEXT_COLOR_OPTIONS = [
   { id: 'white', label: 'ホワイト', color: '#ffffff' }
 ];
 
+const BANNERS = [
+  {
+    image: 'assets/backgrounds/banner.png',
+    link: 'https://discord.gg/Ep5ekfbYDB',
+    alt: 'Discordバナー'
+  }
+];
+
 const state = {
   thumbDataUrl: null,
   thumbOriginalDataUrl: null,
@@ -206,6 +214,7 @@ const renderBtn = document.getElementById('renderBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const shareBtn = document.getElementById('shareBtn');
 const iosNote = document.getElementById('iosNote');
+const bannerArea = document.getElementById('bannerArea');
 
 function buildVcChoice(group, options) {
   group.innerHTML = options.map(opt => `
@@ -402,6 +411,34 @@ function bindGeneralInputEvents() {
         renderCard();
       });
     });
+}
+
+function getRandomBanner() {
+  if (!BANNERS.length) {
+    return null;
+  }
+
+  const randomIndex = Math.floor(Math.random() * BANNERS.length);
+  return BANNERS[randomIndex];
+}
+
+function renderBanner() {
+  if (!bannerArea) return;
+
+  const banner = getRandomBanner();
+
+  if (!banner) {
+    bannerArea.textContent = 'バナーエリア';
+    bannerArea.classList.remove('has-banner');
+    return;
+  }
+
+  bannerArea.classList.add('has-banner');
+  bannerArea.innerHTML = `
+    <a href="${banner.link}" target="_blank" rel="noopener noreferrer">
+      <img src="${banner.image}" alt="${banner.alt || 'バナー'}">
+    </a>
+  `;
 }
 
 function isIOS() {
@@ -946,10 +983,10 @@ function bindDownloadButton() {
 function bindShareButton() {
   shareBtn.addEventListener('click', () => {
     const text = [
-  '(下記ハッシュタグとURLは消さずに画像を添付して投稿してください)',
-  '#ナナオリ自己紹介カード #ナナオリ',
-  '作成はコチラ👇',
-  'https://qr.paps.jp/5sMxu'
+      '(下記ハッシュタグとURLは消さずに画像を添付して投稿してください)',
+      '#ナナオリ自己紹介カード #ナナオリ',
+      '作成はコチラ👇',
+      'https://qr.paps.jp/5sMxu'
     ].join('\n');
 
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
@@ -973,6 +1010,7 @@ function init() {
   bindDownloadButton();
   bindShareButton();
   updateIOSNotice();
+  renderBanner();
 
   renderBtn.addEventListener('click', renderCard);
 
