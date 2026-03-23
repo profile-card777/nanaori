@@ -984,7 +984,7 @@ function bindShareButton() {
   shareBtn.addEventListener('click', () => {
     const text = [
       '(下記ハッシュタグとURLは消さずに画像を添付して投稿してください)',
-      '#ナナオリ自己紹介カード #ナナオリ',
+      '#ナナオリ自己紹介カード #ナナオリフレンド募集 #ナナオリ',
       '作成はコチラ👇',
       'https://qr.paps.jp/5sMxu'
     ].join('\n');
